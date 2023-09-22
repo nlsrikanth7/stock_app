@@ -1,0 +1,6 @@
+yfinance
+fastapi
+polygon
+datetime 
+pandas
+-e .
