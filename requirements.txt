@@ -1,6 +1,6 @@
 yfinance
 fastapi
-polygon
+# polygon
 datetime 
 pandas
 -e .

@@ -13,14 +13,14 @@ connection.row_factory=sqlite3.Row
 cursor = connection.cursor()
 
 # insert to sql db using pandas df and row by row. Also map foreign key manually.
-# stockticker = 'GOOG'
-# barsets = client.get_aggs(stockticker, 1, "day", '2022-01-01', '2022-12-31', None, None,)
-# df =  pd.DataFrame(barsets)
-# df['date'] = pd.to_datetime(df['timestamp'], unit='ms') # convert timestamp from millisec to date time format using pandas df
-# for bar in df.itertuples():
-#     cursor.execute(f"""INSERT INTO stock_price(stock_id, open, high, low, close, volume, vwap, transactions, otc, timestamp, date)
-#     VALUES(6, {bar[1]}, {bar[2]}, {bar[3]}, {bar[4]}, {bar[5]}, {bar[6]}, {bar[8]}, '{bar[9]}', {bar[7]}, '{bar[10]}')""")
-# print("Data processed for", stockticker)
+stockticker = 'AMZN'
+barsets = client.get_aggs(stockticker, 1, "day", '2022-01-01', '2022-12-31', None, None,)
+df =  pd.DataFrame(barsets)
+df['date'] = pd.to_datetime(df['timestamp'], unit='ms') # convert timestamp from millisec to date time format using pandas df
+for bar in df.itertuples():
+    cursor.execute(f"""INSERT INTO stock_price(stock_id, open, high, low, close, volume, vwap, transactions, otc, timestamp, date)
+    VALUES(6, {bar[1]}, {bar[2]}, {bar[3]}, {bar[4]}, {bar[5]}, {bar[6]}, {bar[8]}, '{bar[9]}', {bar[7]}, '{bar[10]}')""")
+print("Data processed for", stockticker)
 
 
 # stockticker = 'RIVN'
@@ -61,14 +61,14 @@ cursor = connection.cursor()
 #     VALUES(10, {bar[1]}, {bar[2]}, {bar[3]}, {bar[4]}, {bar[5]}, {bar[6]}, {bar[8]}, '{bar[9]}', {bar[7]}, '{bar[10]}')""")
 # print("Data processed for", stockticker)
 
-stockticker = 'NFLX'
-barsets = client.get_aggs(stockticker, 1, "day", '2022-01-01', '2022-12-31', None, None,)
-df =  pd.DataFrame(barsets)
-df['date'] = pd.to_datetime(df['timestamp'], unit='ms') # convert timestamp from millisec to date time format using pandas df
-for bar in df.itertuples():
-    cursor.execute(f"""INSERT INTO stock_price(stock_id, open, high, low, close, volume, vwap, transactions, otc, timestamp, date)
-    VALUES(11, {bar[1]}, {bar[2]}, {bar[3]}, {bar[4]}, {bar[5]}, {bar[6]}, {bar[8]}, '{bar[9]}', {bar[7]}, '{bar[10]}')""")
-print("Data processed for", stockticker)
+# stockticker = 'NFLX'
+# barsets = client.get_aggs(stockticker, 1, "day", '2022-01-01', '2022-12-31', None, None,)
+# df =  pd.DataFrame(barsets)
+# df['date'] = pd.to_datetime(df['timestamp'], unit='ms') # convert timestamp from millisec to date time format using pandas df
+# for bar in df.itertuples():
+#     cursor.execute(f"""INSERT INTO stock_price(stock_id, open, high, low, close, volume, vwap, transactions, otc, timestamp, date)
+#     VALUES(11, {bar[1]}, {bar[2]}, {bar[3]}, {bar[4]}, {bar[5]}, {bar[6]}, {bar[8]}, '{bar[9]}', {bar[7]}, '{bar[10]}')""")
+# print("Data processed for", stockticker)
 
 # stockticker = 'S&P 500'
 # barsets = client.get_aggs(stockticker, 1, "day", '2022-01-01', '2022-12-31', None, None,)

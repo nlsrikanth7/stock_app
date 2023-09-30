@@ -23,7 +23,7 @@ print(symbols)
 print(stock_dict)
 for stockticker in symbols:
     print("processing symbol -", stockticker)
-    barsets = client.get_aggs(stockticker, 1, "minute", '2022-05-20', '2022-05-22', None, None, None,)
+    barsets = client.get_aggs(stockticker, 1, "day", '2022-09-20', '2023-09-22', None, None, None,)
     df =  pd.DataFrame(barsets)
     df['date'] = pd.to_datetime(df['timestamp'], unit='ms') # convert timestamp from millisec to date time format using pandas df
     # print(df)
