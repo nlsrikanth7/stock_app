@@ -3,4 +3,10 @@ fastapi
 # polygon
 datetime 
 pandas
+pandas_datareader
+matplotlib
+seaborn
+SQLAlchemy
+PyMySQL
+ta
 -e .
