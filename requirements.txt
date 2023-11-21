@@ -9,4 +9,5 @@ seaborn
 SQLAlchemy
 PyMySQL
 ta
+fredapi
 -e .
