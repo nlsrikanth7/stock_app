@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    
+<h2>PPI (Producer Price Index) </h2>
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+
+<div>
+    <canvas id="ppichart"></canvas>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+
+x = [{% for i in ppi %} '{{i.Date}}', {% endfor %}]
+y = [{% for i in ppi %} '{{i.PPI_Index}}', {% endfor %}]
+
+
+const ctx = document.getElementById('ppichart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: x,
+    datasets: [{
+      label: 'PPI Index',
+      data: y,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+</script>
+
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,105 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+   
+</head>
+
+<body>
+    
+<h2>Interative Stock Visualizer</h2>
+<form action = "" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" name = "symbol" value = "Display">
+    <input type = "submit" name= "predict" value = "Predictions">
+</form>
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+
+x = [{% for i in d %} '{{i.Date}}', {% endfor %}]
+y = [{% for i in d %} '{{i.Close}}', {% endfor %}]
+
+
+
+const ctx = document.getElementById('myChart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: x,
+    datasets: [{
+      label: '{ticker}',
+      data: y,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+
+</script>
+
+<br>
+<br>
+<br>
+
+
+
+
+<div class="container" style="overflow-x:auto;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>AdjClose</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if d %}  
+            {% for i in d %}
+            <tr>
+                <td>{{i.Date}}</td>
+                <td>{{i.Open}}</td>
+                <td>{{i.High}}</td>
+                <td>{{i.Low}}</td>
+                <td>{{i.Close}}</td>
+                <td>{{i.AdjClose}}</td>
+                <td>{{i.Volume}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>
+
+{% endblock %}
+

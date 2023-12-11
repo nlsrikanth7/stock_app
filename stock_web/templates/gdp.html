@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    
+<h2>GDP (Gross Domestic Product) </h2>
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+
+<div>
+    <canvas id="gdpchart"></canvas>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+
+x = [{% for i in gdp %} '{{i.Date}}', {% endfor %}]
+y = [{% for i in gdp %} '{{i.GDPValue}}', {% endfor %}]
+
+
+const ctx = document.getElementById('gdpchart');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: x,
+    datasets: [{
+      label: 'GDP',
+      data: y,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+</script>
+
+<br>
+<br>
+<br>
+
+
+
+
+</body>
+</html>
+{% endblock %}

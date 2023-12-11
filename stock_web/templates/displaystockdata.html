@@ -1,0 +1,109 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--<link rel="stylesheet" href="style.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-aplha1/dist/css/bootstrap.min.css"></link>
+    <link href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"></link>
+    <script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Stock Visualizer</title>
+</head>
+
+<body>
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+
+    $('#display-btn').click(function() {
+        // when the user specifies a new ticker, we call the Django backend (the 'get_stock_data' function) to get the stock data and refresh the graph. 
+        // obtain the ticker string from the input textbox
+        var tickerText = $('#ticker-input').val();
+        $.ajax({
+              type: "POST",
+              url: "/displaystockdata/",
+              data: {
+                 'ticker': tickerText,
+              },
+              success: function(response){
+                x = [{% for i in d %} '{{i.Date}}', {% endfor %}]
+                y = [{% for i in d %} '{{i.Close}}', {% endfor %}]
+              }
+            }
+
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: x,
+        datasets: [{
+          label: 'AAPL',
+          data: y,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    
+    </script>
+
+  <br>
+  <br>
+  <br>
+
+
+
+<div class="container" style="overflow-x:auto;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>AdjClose</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if d %}  
+            {% for i in d %}
+            <tr>
+                <td>{{i.Date}}</td>
+                <td>{{i.Open}}</td>
+                <td>{{i.High}}</td>
+                <td>{{i.Low}}</td>
+                <td>{{i.Close}}</td>
+                <td>{{i.AdjClose}}</td>
+                <td>{{i.Volume}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}
+
+</body>
+
+</html>

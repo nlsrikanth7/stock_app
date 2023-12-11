@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 import pymysql
 
 pymysql.version_info = (1,4,6,'final',0) # (major, minor, micro, releaselevel, serial)
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-gziko@u5&c8od+iiay6_5k(gj7efmiz6(szc757=iqn8b$x2c_"
+SECRET_KEY = "django-insecure-z%kwzta8_8k97^=kfut==s=_uc=%3abnwi89mya*d732arb8ll"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'website'
+    "stockwebsite",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'stockwebsite.middlewares.AjaxMiddleware'
 ]
 
 ROOT_URLCONF = "stock_web.urls"
@@ -59,7 +61,7 @@ ROOT_URLCONF = "stock_web.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')], 
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -81,7 +83,7 @@ WSGI_APPLICATION = "stock_web.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": 'Economic_Indicies',
+        "NAME": 'StockWebApplication',
         "USER": 'root',
         "PASSWORD": 'Shrikanth_1',
         "HOST": 'localhost',
@@ -125,6 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
