@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>  
+<form action = "" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" name = "symbol" value = "financial_statement">
+</form>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+<br>
+<h3> Financial Statement of: {{ticker}} </h3>
+<br>
+
+<div class="row">
+    <div class="col-sm-4" id ="graph-area" style="height:50% width:50%">
+        <canvas id="myChart1"></canvas>
+    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        x1 = [{% for i in d %} '{{i.date}}', {% endfor %}]
+        y1 = [{% for i in d %} '{{i.revenue}}', {% endfor %}]
+        y2 = [{% for i in d %} '{{i.eps}}', {% endfor %}]
+
+        var ctx = document.getElementById('myChart1').getContext('2d');
+        var myChart1 = new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels: x1,
+            datasets: [{
+                label: '{{ticker}} Revenue',
+                data: y1,
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });   
+        </script>
+        <br>
+        <br>
+
+        
+        <div class="col-sm-4" id ="graph-area" style="height:50% width:50%">
+            <canvas id="myChart2"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+
+        x1 = [{% for i in d %} '{{i.date}}', {% endfor %}]
+        y2 = [{% for i in d %} '{{i.eps}}', {% endfor %}]
+
+        var ctx = document.getElementById('myChart2').getContext(2d);
+        var myChart2 = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: x1,
+            datasets: [{
+            label: '{{ticker}} EPS',
+            data: y2,
+            borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+            }
+        }
+        });   
+        </script>
+        
+</div>
+
+</body>
+</html>
+{% endblock %}
+
+

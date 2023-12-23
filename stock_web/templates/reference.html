@@ -53,3 +53,275 @@
         </tbody>
     </table>
 </div>
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<img src="{% static "images/staticpage.jpg" %}" alt ="Image not Found"/>
+<body>  
+<h2>Interative Stock Visualizer</h2>
+<form action = "" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" name = "symbol" value = "Display">
+    <input type = "submit" name= "predict" value = "Predictions">
+</form>
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+
+x = [{% for i in d %} '{{i.Date}}', {% endfor %}]
+y = [{% for i in d %} '{{i.Close}}', {% endfor %}]
+
+
+
+const ctx = document.getElementById('myChart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: x,
+    datasets: [{
+      label: '{ticker}',
+      data: y,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+
+</script>
+
+<br>
+<br>
+<br>
+
+
+
+
+<div class="container" style="overflow-x:auto;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>AdjClose</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if d %}  
+            {% for i in d %}
+            <tr>
+                <td>{{i.Date}}</td>
+                <td>{{i.Open}}</td>
+                <td>{{i.High}}</td>
+                <td>{{i.Low}}</td>
+                <td>{{i.Close}}</td>
+                <td>{{i.AdjClose}}</td>
+                <td>{{i.Volume}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>
+
+{% endblock %}
+
+
+ <!--contact page start-->
+<div class="container">
+
+
+    <div class="row">
+      <div class="col-lg-5 col-sm-5 address">
+        <section class="contact-infos">
+          <h4 class="title custom-font text-black">
+            OFFICE ADDRESS
+          </h4>
+          <address>
+            7 Caesar Jones Way
+            <br>
+            Bedford, MA
+            <br>
+            USA
+          </address>
+        </section>
+        <section class="contact-infos">
+          <h4 class="title custom-font text-black">
+            BUSINESS HOURS
+          </h4>
+          <p>
+            Monday - Friday 8am to 8pm
+            <br>
+            Saturday - 8am to 6pm
+            <br>
+            Sunday- Closed
+            <br>
+          </p>
+        </section>
+        <section class="contact-infos">
+          <h4>
+            TELEPHONE
+          </h4>
+          <p>
+            <i class="icon-phone">
+            </i>
+            781-392-6331
+          </p>
+
+          <h4>
+              EMAIL
+            </h4>
+
+          <p>
+            <i class="icon-email">
+            </i>
+            nlsrikanth@gmail.com
+          </p>
+
+        </section>
+      </div>
+
+
+
+      <div class="col-lg-7 col-sm-7 address">
+        <h4>
+          Enter the details here
+        </h4>
+        <div class="contact-form">
+          <form role="form">
+            <div class="form-group">
+              <label for="name">
+                Name
+              </label>
+              <input type="text" placeholder="" id="name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="email">
+                Email
+              </label>
+              <input type="text" placeholder="" id="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="phone">
+                Phone
+              </label>
+              <input type="text" id="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="phone">
+                Message
+              </label>
+              <textarea placeholder="" rows="5" class="form-control">
+              </textarea>
+            </div>
+            <br>
+            <button class="btn btn-info" type="submit">
+              Submit
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--container end-->
+
+
+
+  <div id ="graph-area" style="height:70% width:70%">
+    <canvas id="myChart"></canvas>
+</div>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+
+x = [{% for i in d %} '{{i.Date}}', {% endfor %}]
+y = [{% for i in d %} '{{i.Close}}', {% endfor %}]
+
+
+const ctx = document.getElementById('myChart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: x,
+    datasets: [{
+      label: '{{ticker}}',
+      data: y,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+
+</script>
+
+<br>
+<br>
+<br>
+
+<div class="container" style="overflow-x:auto;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>AdjClose</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if d %}  
+            {% for i in d %}
+            <tr>
+                <td>{{i.Date}}</td>
+                <td>{{i.Open}}</td>
+                <td>{{i.High}}</td>
+                <td>{{i.Low}}</td>
+                <td>{{i.Close}}</td>
+                <td>{{i.AdjClose}}</td>
+                <td>{{i.Volume}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>

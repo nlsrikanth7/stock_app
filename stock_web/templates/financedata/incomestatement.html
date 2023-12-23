@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <div class="container">
+        <form action = "" method="POST"> 
+            {% csrf_token %}
+            {{ form }}
+            <input type = "submit" name = "ticker" value = "Income Statement">
+        </form>
+    </div>
+    <br>
+    <a href= "{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+    <br>
+    <br>
+    <h3> Financial Statement of: {{ticker}} </h3>
+    </br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class = "bg-grey">
+                    <canvas id="myChart1" width="400" height="300"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        var ctx = document.getElementById('myChart1').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type:'line',
+                            data: {
+                                labels: [{% for i in d %} '{{i.date}}', {% endfor %}],
+                                datasets: [{
+                                    label:'{{symbol}} Revenue',
+                                    data: [{% for i in d %} '{{i.revenue}}', {% endfor %}],
+                                    backgroundColor:[],
+                                    borderColor: [],
+                                    borderWidth:1
+                                }]
+                            },
+                            options:{
+                                scales: {
+                                    yAxes:[{
+                                        ticks:{
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class = "bg-grey">
+                    <canvas id="myChart2" width="400" height="300"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        var ctx = document.getElementById('myChart2').getContext('2d');
+                        var myChart1 = new Chart(ctx, {
+                            type:'line',
+                            data: {
+                                labels: [{% for i in d %} '{{i.date}}', {% endfor %}],
+                                datasets: [{
+                                    label:'{{symbol}} EPS',
+                                    data:[{% for i in d %} '{{i.eps}}', {% endfor %}],
+                                    backgroundColor:[],
+                                    borderColor: [],
+                                    borderWidth:1
+                                }]
+                            },
+                            options:{
+                                scales: {
+                                    yAxes:[{
+                                        ticks:{
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                    </script>
+                </div>
+            </div>
+        </div>
+
+    </div>
+ 
+
+    <div class ="container">
+        <h2> Economic Indicators </h>
+
+    </div>
+
+</br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class = "bg-grey">
+                <canvas id="myChart3" width="400" height="300"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    var ctx = document.getElementById('myChart3').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type:'line',
+                        data: {
+                            labels: [{% for i in d %} '{{i.date}}', {% endfor %}],
+                            datasets: [{
+                                label:'{{symbol}} Revenue',
+                                data: [{% for i in d %} '{{i.revenue}}', {% endfor %}],
+                                backgroundColor:[],
+                                borderColor: [],
+                                borderWidth:1
+                            }]
+                        },
+                        options:{
+                            scales: {
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class = "bg-grey">
+                <canvas id="myChart4" width="400" height="300"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    var ctx = document.getElementById('myChart4').getContext('2d');
+                    var myChart1 = new Chart(ctx, {
+                        type:'line',
+                        data: {
+                            labels: [{% for i in d %} '{{i.date}}', {% endfor %}],
+                            datasets: [{
+                                label:'{{symbol}} EPS',
+                                data:[{% for i in d %} '{{i.eps}}', {% endfor %}],
+                                backgroundColor:[],
+                                borderColor: [],
+                                borderWidth:1
+                            }]
+                        },
+                        options:{
+                            scales: {
+                                yAxes:[{
+                                    ticks:{
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                </script>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<br>
+<br>
+<div class ="container">
+    <h2> Global Indicators </h>
+
+</div>
+<br>
+
+
+
+</body>
+
+{% endblock %}
+
+

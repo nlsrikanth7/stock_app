@@ -1,0 +1,131 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<body>  
+<form action = "" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" name = "symbol" value = "financial_statement">
+</form>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+<br>
+<h3> Financial Statement of: {{ticker}} </h3>
+<br>
+
+ <div id="content-wrapper" style="padding-top: 105px">
+
+        <div class="container-fluid">
+            <!-- Icon Cards-->
+            <div class="row">
+
+         <div class="col-sm-6">    
+        <canvas id="myChart1" width="300" height="200"></canvas>
+                <div>
+
+<script type="text/javascript">
+    x= [{% for i in d %} '{{ i.date }}', {% endfor %}]
+    y = [{% for i in d %} '{{ i.eps }}', {% endfor %}]
+    var ctx = document.getElementById('myChart1').getContext('2d');
+    var myChart1 = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: x,
+            datasets: [{
+                label:'Gender',
+                data: y,
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+</script>        
+</div>
+</div>
+
+
+
+<div class="col-sm-6">    
+<canvas id="myChart" width="300" height="200"></canvas>
+                <div>
+
+<script type="text/javascript">
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for course in course_list %} '{{ course }}', {% endfor %}],
+            datasets: [{
+                label:'Student',
+                data: [{% for number in number_list %} '{{ number }}', {% endfor %}],
+                backgroundColor:[
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(151, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'gree',
+                'yellow',
+                ],
+
+                borderColor: [
+                'rgba(54, 162, 135, 1)',
+                'rgba(25, 206, 86, 1)',
+                'rgba(211, 192, 192, 1)',
+                'rgba(234, 102, 132, 1)',
+                'rgba(153, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+
+                ],
+
+                borderWidth: 1
+            }]
+        },
+
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+</script>        
+</div>
+</div> 
+
+
+</div>
+
+<br>
+<br>
+<br>
+
+
+<!-- end of static icon -->           
+        </div>
+        </div>
+        </div>
+
+{% endblock %}

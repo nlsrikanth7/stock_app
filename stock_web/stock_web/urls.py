@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from stockwebsite import views
+from finance import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('stockwebsite.urls')),
-    # path('display/', views.displaystockdata),
+    path('stock/', include('stockwebsite.urls')),
+    path('finance/', include('finance.urls')),
+    
 ]

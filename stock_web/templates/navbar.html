@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Stock Analysis</a>
+      <a class="navbar-brand" href="{% url 'index' %}">Stock Analysis</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -12,6 +12,7 @@
               Backtesting
             </a>
             <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'stockvisualizer' %}">Stock Visualizer</a></li>
               <li><a class="dropdown-item" href="#">SMA</a></li>
               <li><a class="dropdown-item" href="#">RSI</a></li>
              
@@ -36,9 +37,9 @@
               Company Analysis
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Financial Statement</a></li>
-              <li><a class="dropdown-item" href="#">P/E Ratio</a></li>
-              <li><a class="dropdown-item" href="#">Events based analysis</a></li>
+              <li><a class="dropdown-item" href="{% url 'financial_statements' %}">Financial Statement</a></li>
+              <li><a class="dropdown-item" href="{% url 'incomestatement' %}">Income Statement</a></li>
+              <li><a class="dropdown-item" href="{% url 'bss' %}">BalanceSheet</a></li>
               
             </ul>
           </li>
@@ -61,7 +62,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Contact</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contact</a>
           </li>
         </ul>
         <form class="d-flex" role="search">

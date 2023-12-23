@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<body>  
+<h2>Interative Stock Visualizer</h2>
+<form action = "" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" name = "symbol" value = "Display">
+    <input type = "submit" name= "predict" value = "Predictions">
+</form>
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+<br>
+
+<h2>{{tickerr}}</h2>
+
+<div class = "row mt-2">
+    <div class = "col-md-4">
+        <h3> Stock: {{ticker}} </h3>
+    </div>
+
+    <div class ="col-md-8">
+        <div id ="graph-area" style="height:70% width:70%">
+            <canvas id="myChart"></canvas>
+        </div>
+          
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+        <script>
+        
+        x = [{% for i in d %} '{{i.Date}}', {% endfor %}]
+        y = [{% for i in d %} '{{i.Close}}', {% endfor %}]
+        
+        
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: x,
+            datasets: [{
+              label: '{{ticker}}',
+              data: y,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        
+        
+        </script>
+
+    </div>
+        
+</div>
+
+
+
+</body>
+</html>
+{% endblock %}

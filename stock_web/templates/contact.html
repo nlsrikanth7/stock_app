@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+<!doctype html>
+<!--
+ @license
+ Copyright 2019 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+  <head>
+    <title>Add Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
+    <style>
+        #map {
+        height: 300px; /* The height is 400 pixels */
+        width: 40%; /* The width is the width of the web page */
+    }
+    </style>
+</head>
+
+<body>
+    
+    <div class = "row">
+        <div>
+          <section class="contact-infos">
+            <h4 class="title custom-font text-black">Office Address</h4>
+            <address>
+              7 Caesar Jones Way, Bedford, MA, USA.
+              <br>
+              <div id="map"></div>
+            </address>
+          </section>
+
+          <section class="contact-infos">
+            <h4 class="title custom-font text-black">Office hours</h4> <p>Monday to Friday : 8am to 6pm</p>
+          </section>
+          <section class="contact-infos">
+            <h4>Contact Details</h4>
+            <p>
+              <i class="icon-phone">
+              </i>
+              ph: 781-392-6331 | email: nlsrikanth@gmail.com
+            </p>
+          </section>
+        </div>
+        
+
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+<br>
+    <!--The div element for the map -->
+        
+    
+<script>
+    function initMap(){
+        var location = {lat:42.482269 , lng:-71.302177 };
+        var map = new google.maps.Map(document.getElementById("map"),{
+            zoom:16,
+            center: location
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            map:map
+        })
+    }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS3BUm5aXmKDGxM0xZbvqatGIXJs5X_eI&callback=initMap"></script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+{% endblock content %}
