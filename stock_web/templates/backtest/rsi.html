@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h2>RSI (Relative Strength Idex)</h2>
+    <form action = "" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type = "submit" name = "rsi" value = "Display">
+        
+    </form>
+    <br>
+        <br>
+        <h4>Starting Porforlio Value: {{Starting_value}}</h4>
+       
+        <h4> Final Portforlio Value: {{Ending_value}}</h4>
+        
+        <h4> Total Profit: {{Profit}}</h4>
+       
+<br>
+<a href="{% url 'index' %}"><button type = "submit" name = "homepage" id ="display-btn" class ="btn btn-secondary">Home</button></a>
+<br>
+<br>
+<br>
+<br>
+<div class = "row mt-2">
+  <div>
+
+     <form action="/rsi" method="POST">
+        {% csrf_token %} 
+
+        <h2>Other Backtrading Options</h2>
+      <button class="btn btn-success" type="submit" name = "rsi">RSI</button>
+      <button class="btn btn-success" type="submit" name="srsi" style="margin:0;margin-left:16px;">StochasticRSI</button>
+      <button class="btn btn-success" type="submit" name="macd" style="margin:0;margin-left:16px;">MACD</button>
+      <button class="btn btn-success" type="submit" name="BBand" style="margin:0;margin-left:16px;">Bollinger Bands</button>
+      <button class="btn btn-success" type="submit" name="SimpleCrossOver" style="margin:0;margin-left:16px;">SimpleCrossOver</button>
+      <button class="btn btn-success" type="submit" name="GoldenCrossOVer" style="margin:0;margin-left:16px;">GoldenCrossOVer</button>
+      </form>
+  </div>
+</body>
+</html>
+{% endblock %}

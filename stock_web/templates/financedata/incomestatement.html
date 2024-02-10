@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+<!DOCTYPE html>
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <body>
+    <br>
     <div class="container">
         <form action = "" method="POST"> 
             {% csrf_token %}
@@ -19,11 +23,11 @@
             <div class="col-md-6">
                 <div class = "bg-grey">
                     <canvas id="myChart1" width="400" height="300"></canvas>
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    
                     <script>
                         var ctx = document.getElementById('myChart1').getContext('2d');
                         var myChart1 = new Chart(ctx, {
-                            type:'line',
+                            type:'bar',
                             data: {
                                 labels: [{% for i in d %} '{{i.date}}', {% endfor %}],
                                 datasets: [{
@@ -50,7 +54,7 @@
             <div class="col-md-6">
                 <div class = "bg-grey">
                     <canvas id="myChart2" width="400" height="300"></canvas>
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                   
                     <script>
                         var ctx = document.getElementById('myChart2').getContext('2d');
                         var myChart1 = new Chart(ctx, {
@@ -95,7 +99,7 @@
         <div class="col-md-6">
             <div class = "bg-grey">
                 <canvas id="myChart3" width="400" height="300"></canvas>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
                 <script>
                     var ctx = document.getElementById('myChart3').getContext('2d');
                     var myChart1 = new Chart(ctx, {
@@ -126,7 +130,7 @@
         <div class="col-md-6">
             <div class = "bg-grey">
                 <canvas id="myChart4" width="400" height="300"></canvas>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
                 <script>
                     var ctx = document.getElementById('myChart4').getContext('2d');
                     var myChart1 = new Chart(ctx, {
@@ -171,6 +175,8 @@
 
 
 </body>
+
+</html>
 
 {% endblock %}
 

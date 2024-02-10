@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class = "container">
+    <h1>Live Stock Tracker </h1>
+    <p> Select your favourite Stocks </p>
+    <form action = "/Realtimetracking/stocktracker">
+        <label for ="stockpicker"> Select Stocks: </label>
+        <select class="form-select" multiple aria-label="Multiple select example" name ="stockpicker">
+            {% for i in stockpicker %}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <div class = "d-grid gap-2">
+            <input class="btn btn-primary" type = "submit" value = "Submit">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

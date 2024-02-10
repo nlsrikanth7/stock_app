@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from stockwebsite import views
 from finance import views
+from backtrading import views 
+from Realtimetracking import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('stock/', include('stockwebsite.urls')),
+    path('', include('stockwebsite.urls')),
     path('finance/', include('finance.urls')),
-    
+    path('backtrading/', include('backtrading.urls')),
+    path('Realtimetracking/', include('Realtimetracking.urls')),
 ]

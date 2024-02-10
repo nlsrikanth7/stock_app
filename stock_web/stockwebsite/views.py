@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from django.conf import settings
 import yfinance as yf
 import datetime as dt
-from . import middlewares
+# from . import middlewares
 import json
 import pandas as pd 
 import numpy as np
@@ -109,11 +109,15 @@ def stockvisualizer(request):
         form = TickerForm(request.POST)
         if form.is_valid():
             ticker = request.POST['ticker']
+            start = dt.datetime(2023,1,1)
+            end = dt.datetime.now()
+            df = yf.download(ticker, start, end)
+            df = df.to_csv(f'Data/{ticker}.csv')
             if 'symbol' in request.POST:
-                start = dt.datetime(2023,1,1)
-                end = dt.datetime.now()
-                df = yf.download(ticker, start, end)
-                df = df.to_csv(f'Data/{ticker}.csv')
+                # start = dt.datetime(2023,1,1)
+                # end = dt.datetime.now()
+                # df = yf.download(ticker, start, end)
+                # df = df.to_csv(f'Data/{ticker}.csv')
                 data = pd.read_csv(f'Data/{ticker}.csv')  
                 # data.to_sql(Stockpricedata, con=engine, if_exists='replace')  
                 # return HttpResponse('Data added to DB')
@@ -142,20 +146,40 @@ def GDP(request):
     arr = []
     arr = json.loads(json_records)
     gdp = {'gdp': arr}
-    return render(request, 'economicdata/gdp.html', gdp)
+    return render(request, 'economicdata/cpi.html', gdp)
 
 def CPI(request):
     start = dt.datetime(2010,1,1)
     end = dt.datetime.now()
-    df = fred.get_series('USACPALTT01CTGYM',observation_start=start, observation_end=end)
+    # CPI - USACPALTT01CTGYM
+    df1 = fred.get_series('MEDCPIM158SFRBCLE',observation_start=start, observation_end=end)
+    df1 = df1.reset_index()
+    df1 = df1.to_csv(f"Data/CPI.csv", header=['Date', 'CPI_Index'])
+    cpidata = pd.read_csv(f'Data/CPI.csv')
+    cpi_json_records = cpidata.reset_index().to_json(orient='records')
+    cpi_arr = []
+    cpi_arr = json.loads(cpi_json_records)
+    
+    #PPI
+    df2 = fred.get_series('PPIACO',observation_start=start, observation_end=end)
+    df2 = df2.reset_index()
+    df2 = df2.to_csv(f"Data/PPI.csv", header=['Date', 'PPI_Index'])
+    ppi_data = pd.read_csv(f'Data/PPI.csv')
+    ppi_json_records = ppi_data.reset_index().to_json(orient='records')
+    ppi_arr = []
+    ppi_arr = json.loads(ppi_json_records)
+
+    #GDP
+    df = fred.get_series('GDP', observation_start=start, observation_end= end)
     df = df.reset_index()
-    df = df.to_csv(f"Data/CPI.csv", header=['Date', 'CPI_Index'])
-    data = pd.read_csv(f'Data/CPI.csv')
+    df = df.to_csv(f"Data/GDP.csv", header=['Date', 'GDPValue'])
+    data = pd.read_csv(f'Data/GDP.csv')
     json_records = data.reset_index().to_json(orient='records')
     arr = []
     arr = json.loads(json_records)
-    cpi = {'cpi': arr}
-    return render(request, 'economicdata/cpi.html', cpi)
+
+    context = {'cpi': cpi_arr, 'gdp': arr, 'ppi': ppi_arr}
+    return render(request, 'economicdata/cpi.html', context)
 
 def PPI(request):
     start = dt.datetime(2010,1,1)
@@ -168,31 +192,10 @@ def PPI(request):
     arr = []
     arr = json.loads(json_records)
     ppi = {'ppi': arr}
-    return render(request, 'economicdata/ppi.html', ppi)
+    return render(request, 'economicdata/cpi.html', ppi)
 
 API_KEY = '6ea77b917e9ac025a7fab4f39229fdf1'
-def financial_statements(request):
-    if request.method == 'POST':
-        form = TickerForm(request.POST)
-        if form.is_valid():
-            ticker = request.POST['ticker']
-            if 'symbol' in request.POST:
-                base_url =  'https://financialmodelingprep.com/api'
-                data_type = 'income-statement'
-                url = f"{base_url}/v3/{data_type}/{ticker}?period=annual&apikey={API_KEY}"
-                response = urlopen(url, cafile=certifi.where())
-                data = response.read().decode("utf-8")
-                arr = []
-                arr = json.loads(data)
-                context = {'d': arr, 'ticker': ticker}
-                return render(request, 'financial_statement.html', context)
-            else:
-                return HttpResponse('Something is not working at 1')
-        else:
-            return HttpResponse('Something is not working at 2')
-    else:
-        form = TickerForm()
-    return render(request, 'financial_statement.html', {'form':form})
+
 
 
 

@@ -3,9 +3,82 @@
 {% block content %}
 <!DOCTYPE html>
 <html>
-<body>  
-<img src="{% static "images/staticpage.jpg" %}" alt ="Image not Found"/>
-</body>
+<br>    
+    <head>
+       
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width", initial-scale="1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <style>
+            /* Make the image fully responsive */
+            .carousel-inner img {
+              width: 100%;
+              height: auto;
+            }
+            .carousel slide{
+              position:absolute;
+              top:50%;
+              text-align: center;
+            }
+            /* .container{
+                max-width: 1200px;
+            } */
+        </style>
+    </head>
+    
+
+    <body>  
+        <div>
+            <div id="demo" class="carousel slide" data-ride="carousel" >
+
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                </ul>
+          
+                <!-- The slideshow -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static "images/staticpage1.jpg" %}" alt="SevenQuants" width="800" height="200">
+                        <div class = "carousel-caption">
+                            <h3>SevenQuants</h3>
+                            <p>Progress Forward & Upwards</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static "images/staticpage3.jpeg" %}" alt="SevenQuants" width="800" height="200">
+                    </div>
+                </div>
+          
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                </a>
+          
+            </div>
+
+            <div class = "bg-grey">
+                <h1> SevenQuants</h1>
+                <p>- SevenQuants is a Stock Analytics Start-up. We perform Data Analytics on variety of stocks, equities, currencies, options and futures using Algorithmic trading to predict price movements and stock recommendations by performs quantitative analysis on seven different categories that influence investment Decision like Buy & Sell & Hold. </p>
+              
+            </div> 
+            <!-- <div class = "col-lg-9" style="float: right; max-height: 100px;">
+                <img src="{% static "images/staticpage.jpg" %}" class = "img-fluid" alt ="{% static "images/staticpage2.jpg" %}">
+            </div> -->
+            
+            <div id="mapChart"></div>
+        </div>
+
+    </body>
+
 </html>
 
 {% endblock %}

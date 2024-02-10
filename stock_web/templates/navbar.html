@@ -1,6 +1,13 @@
+{%load static %}
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'index' %}">Stock Analysis</a>
+      <a class="navbar-brand" rel="home" href="{% url 'index' %}" title="SevenQuants">
+        <img style="max-width:40px; margin-top: -5px;"
+             src="static/images/Logo.png">
+             SevenQuants
+      </a>
+
+    
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -14,7 +21,9 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'stockvisualizer' %}">Stock Visualizer</a></li>
               <li><a class="dropdown-item" href="#">SMA</a></li>
-              <li><a class="dropdown-item" href="#">RSI</a></li>
+              <li><a class="dropdown-item" href="{% url 'rsi'%}">RSI</a></li>
+              <li><a class="dropdown-item" href="{% url 'stocktracker'%}">StockTracker</a></li>
+              <li><a class="dropdown-item" href="{% url 'stockpicker'%}">StockPicker</a></li>
              
             </ul>
           </li>
@@ -25,7 +34,7 @@
               Economic Analysis
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'CPI' %}">CPI/Inflation</a></li>
+              <li><a class="dropdown-item" href="{% url 'CPI' %}">Economic Indicators</a></li>
               <li><a class="dropdown-item" href="{% url 'PPI' %}">PPI</a></li>
               <li><a class="dropdown-item" href="{% url 'GDP' %}">GDP</a></li>
               
@@ -37,7 +46,7 @@
               Company Analysis
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'financial_statements' %}">Financial Statement</a></li>
+              <li><a class="dropdown-item" href="#">Financial Statement</a></li>
               <li><a class="dropdown-item" href="{% url 'incomestatement' %}">Income Statement</a></li>
               <li><a class="dropdown-item" href="{% url 'bss' %}">BalanceSheet</a></li>
               
@@ -65,10 +74,29 @@
             <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contact</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
+        <div class = 'container-fluid' style="float: right;"> 
+          <!-- <button onclick="myFunction()">Dark Mode</button> -->
+          <div class="toggle-container container">
+            <label class="switch">
+                <input type="checkbox">
+                <span id="toggle" class="slider round"> </span>
+            </label>
+          </div>
+          <script>
+            var button = document.getElementById('toggle');
+            button.onclick = function(){
+                document.body.classList.toggle("dark-theme");
+            }
+          </script>
+        </div>
+        <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit" >Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
-  </nav>
+
+
+
+
+</nav>
